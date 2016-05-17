@@ -1,0 +1,26 @@
+version: '2'
+services:
+  mongodbhost:
+    image: mongo:3.3.5
+    ports:
+      - "27017:27017"
+
+  web:
+    build: .
+    command: npm start
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/ejs-waitlist
+
+  web_local:
+    build: .
+    command: npm start
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../nodeagent-tcell:/tcellagent_src
+      - .:/ejs-waitlist
+      - ./package-docker.json:/ejs-waitlist/package.json
+    links:
+      - mongodbhost
