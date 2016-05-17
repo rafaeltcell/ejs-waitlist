@@ -12,6 +12,8 @@ services:
       - "3000:3000"
     volumes:
       - .:/ejs-waitlist
+    links:
+      - mongodbhost
 
   web_local:
     build: .
