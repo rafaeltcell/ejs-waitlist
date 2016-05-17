@@ -14,6 +14,6 @@
     "morgan": "~1.6.1",
     "serve-favicon": "~2.3.0",
     "mongoose": "~4.4.0",
-    "tcell-agent": "file:///Users/ralba/Projects/github/nodeagent-tcell"
+    "tcell-agent": "~0.1.0"
   }
 }
