@@ -28,7 +28,7 @@ router.post('/seed', function(req, res, next) {
         seeds.push({email: ("waitlist+" + count + "@tcell.io")})
       }
       WaitlistEntry.collection.insert(seeds, function(err, docs) {
-        res.send(docs)
+        res.send(err)
       });
     }
   });
