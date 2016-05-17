@@ -15,7 +15,18 @@ services:
     links:
       - mongodbhost
 
-  web_local:
+  tcell_web:
+    build: .
+    command: npm start
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/ejs-waitlist
+      - ./package-docker.released.json:/ejs-waitlist/package.json
+    links:
+      - mongodbhost
+
+  tcell_web_local:
     build: .
     command: npm start
     ports:
@@ -23,6 +34,6 @@ services:
     volumes:
       - ../nodeagent-tcell:/tcellagent_src
       - .:/ejs-waitlist
-      - ./package-docker.json:/ejs-waitlist/package.json
+      - ./package-docker.local.json:/ejs-waitlist/package.json
     links:
       - mongodbhost
