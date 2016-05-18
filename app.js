@@ -7,7 +7,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://mongodbhost/ejs_waitlist_dev');
+
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 var WaitlistEntry = require('./models/waitlistEntry');
 
@@ -27,11 +29,28 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(require('express-session')({
+    secret: '70560fad5d277d364272f95bea941e786759739a6287971286b5d7d43b0c55a041eaa446b2a2f433243c8c3171ff0d3e08d7e92850b724b783ff3fae2f2e26a0',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 //app.use('/users', users);
 app.use('/waitlist_entries', waitlistEntries);
+
+// passport config
+var Account = require('./models/account');
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
+
+//mongoose.connect('mongodb://mongodbhost/ejs_waitlist_dev');
+mongoose.connect('mongodb://localhost/ejs_waitlist_dev');
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
