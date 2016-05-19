@@ -1,4 +1,9 @@
-//var tcellAgent = require('tcell-agent');
+try {
+  var tcellAgent = require('tcell-agent');
+}
+catch (e) {
+  // this is for load-testing project
+}
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
