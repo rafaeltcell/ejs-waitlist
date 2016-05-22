@@ -15,6 +15,7 @@ var mongoose = require('mongoose');
 
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
 
 var WaitlistEntry = require('./models/waitlistEntry');
 
@@ -52,6 +53,43 @@ var Account = require('./models/account');
 passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
+
+passport.use(new FacebookStrategy({
+    clientID: '1086752218030311',
+    clientSecret: '4a0b1c8ba06913b9767687061c84537f',
+    callbackURL: "http://localhost:3000/auth/facebook/callback"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    //Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
+      //if (err) {
+        //return res.render('register', { account : account });
+      //}
+
+      //passport.authenticate('local')(req, res, function () {
+        //res.redirect('/');
+      //});
+    //});
+    console.log(accessToken, refreshToken);
+    // profile
+    //{ id: '10106287163306150',
+      //username: undefined,
+      //displayName: 'Rafael Alba',
+      //name:
+       //{ familyName: undefined,
+         //givenName: undefined,
+         //middleName: undefined },
+      //gender: undefined,
+      //profileUrl: undefined,
+      //provider: 'facebook',
+      //_raw: '{"name":"Rafael Alba","id":"10106287163306150"}',
+      //_json: { name: 'Rafael Alba', id: '10106287163306150' } }
+
+    Account.findOne({username: "rafael"}, function(err, account) {
+      return cb(err, account);
+    });
+  }
+));
+
 
 //mongoose.connect('mongodb://mongodbhost/ejs_waitlist_dev');
 mongoose.connect('mongodb://localhost/ejs_waitlist_dev');
