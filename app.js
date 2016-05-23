@@ -53,8 +53,7 @@ passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
-//mongoose.connect('mongodb://mongodbhost/ejs_waitlist_dev');
-mongoose.connect('mongodb://localhost/ejs_waitlist_dev');
+mongoose.connect('mongodb://mongodbhost/ejs_waitlist_dev');
 
 
 // catch 404 and forward to error handler
