@@ -16,10 +16,8 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
-var WaitlistEntry = require('./models/waitlistEntry');
-
 var routes = require('./routes/index');
-//var users = require('./routes/users');
+var users = require('./routes/users');
 var waitlistEntries = require('./routes/waitlistEntries');
 
 var app = express();
@@ -44,7 +42,7 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-//app.use('/users', users);
+app.use('/users', users);
 app.use('/waitlist_entries', waitlistEntries);
 
 // passport config

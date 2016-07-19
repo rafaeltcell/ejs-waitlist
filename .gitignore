@@ -34,3 +34,4 @@ node_modules
 
 tcell/
 tcell_agent.config
+.DS_Store
