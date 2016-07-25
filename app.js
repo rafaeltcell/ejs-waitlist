@@ -10,6 +10,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var csrf = require('csurf')
 
 var mongoose = require('mongoose');
 
@@ -32,6 +33,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(csrf({ cookie: true }))
 app.use(require('express-session')({
     secret: '70560fad5d277d364272f95bea941e786759739a6287971286b5d7d43b0c55a041eaa446b2a2f433243c8c3171ff0d3e08d7e92850b724b783ff3fae2f2e26a0',
     resave: false,
@@ -43,7 +45,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/waitlist_entries', waitlistEntries);
+app.use('/waitlist_entries/', waitlistEntries);
+
+app.get('/seed', require('./routes/seeds'));
+app.get('/something_bogus', function(req, res, next) {
+  res.send({status: "alive"});
+});
+app.get('/local_redirect', function(req, res, next) {
+  res.location('/waitlist_entries?_utm=redacted');
+  res.redirect('/waitlist_entries?_utm=redacted');
+});
+app.get('/external_redirect', function(req, res, next) {
+  res.location('http://www.google.com/?_utm=redacted');
+  res.redirect('http://www.google.com/?_utm=redacted');
+});
 
 // passport config
 var Account = require('./models/account');

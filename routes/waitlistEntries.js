@@ -6,6 +6,7 @@ const WaitlistEntry = require('../models/waitlistEntry');
 router.get('/', function(req, res, next) {
   WaitlistEntry.find({}, function(err, waitlistEntries){
     res.render('waitlist_entries/index', {
+      csrf: req.csrfToken(),
       title: 'Waitlist Entries',
       waitlistEntries: waitlistEntries
     });
@@ -13,25 +14,15 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-  new WaitlistEntry({email: req.body.email}).save(function (err) {
-    res.send(err);
-  });
-});
-
-router.post('/seed', function(req, res, next) {
-  WaitlistEntry.remove({}, function(err) {
+  new WaitlistEntry({email: req.body.email}).save(function (err, waitlistEntry) {
     if (err) {
-      res.send(err)
+      res.send(err);
     } else {
-      var seeds = []
-      for(count = 0; count < 1000; count++){
-        seeds.push({email: ("waitlist+" + count + "@tcell.io")})
-      }
-      WaitlistEntry.collection.insert(seeds, function(err, docs) {
-        res.send(err)
-      });
+      res.redirect('/waitlist_entries');
     }
   });
 });
+
+router.post('/seed', require('./seeds'));
 
 module.exports = router;

@@ -2,6 +2,21 @@ block content
   h1= title
   p Welcome to #{title}
 
+h2 Working Form
+form(action="/waitlist_entries", method="post")
+  input(type="hidden", name="_csrf", value="#{csrf}")
+  label
+    | Your Email:
+    input(type="email", id="id_email", maxlength="255", name="email")
+  input(type="submit", value="Submit")
+
+h2 Missing CSRF Form
+form(action="/waitlist_entries", method="post")
+  label
+    | Your Email:
+    input(type="email", id="id_email", maxlength="255", name="email")
+  input(type="submit", value="Submit")
+
 ul
   each waitlistEntry in waitlistEntries
     li= waitlistEntry.email

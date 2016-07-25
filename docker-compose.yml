@@ -36,5 +36,6 @@ services:
       - ../nodeagent-tcell:/tcellagent_src
       - .:/ejs-waitlist
       - ./package-docker.local.json:/ejs-waitlist/package.json
+      - ./tcell:/ejs-waitlist/tcell
     links:
       - mongodbhost
