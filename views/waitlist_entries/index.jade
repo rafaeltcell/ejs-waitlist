@@ -3,11 +3,27 @@ block content
   p Welcome to #{title}
 
 h2 Working Form
-form(action="/waitlist_entries", method="post")
+form(action="/waitlist_entries", method="post", enctype="multipart/form-data")
   input(type="hidden", name="_csrf", value="#{csrf}")
   label
     | Your Email:
     input(type="email", id="id_email", maxlength="255", name="email")
+
+  div(class="form-group")
+    label(for="picture")
+      | File upload:
+    input(type="file" name="picture")
+
+  div(class="form-group")
+    label(for="picture")
+      | File upload:
+    input(type="file" name="picture")
+
+  div(class="form-group")
+    label(for="avatar")
+      | File upload:
+    input(type="file" name="avatar")
+
   input(type="submit", value="Submit")
 
 h2 Missing CSRF Form

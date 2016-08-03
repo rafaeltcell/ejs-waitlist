@@ -10,6 +10,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var multer  = require('multer')
 var csrf = require('csurf')
 
 var mongoose = require('mongoose');
@@ -33,6 +34,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(multer({dest: 'uploads/'}).fields([{ name: 'picture', maxCount: 2 }, { name: 'avatar', maxCount: 1 }]));
 app.use(csrf({ cookie: true }))
 app.use(require('express-session')({
     secret: '70560fad5d277d364272f95bea941e786759739a6287971286b5d7d43b0c55a041eaa446b2a2f433243c8c3171ff0d3e08d7e92850b724b783ff3fae2f2e26a0',

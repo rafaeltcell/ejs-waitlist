@@ -14,13 +14,15 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-  new WaitlistEntry({email: req.body.email}).save(function (err, waitlistEntry) {
-    if (err) {
-      res.send(err);
-    } else {
-      res.redirect('/waitlist_entries');
-    }
-  });
+  console.log(req)
+  res.redirect('/waitlist_entries');
+  //new WaitlistEntry({email: req.body.email}).save(function (err, waitlistEntry) {
+    //if (err) {
+      //res.send(err);
+    //} else {
+      //res.redirect('/waitlist_entries');
+    //}
+  //});
 });
 
 router.post('/seed', require('./seeds'));

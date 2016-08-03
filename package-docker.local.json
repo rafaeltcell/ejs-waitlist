@@ -19,6 +19,7 @@
     "serve-favicon": "~2.3.0",
     "mongoose": "~4.4.0",
     "csurf": "^1.0.0",
+    "multer": "^1.0.0",
     "tcell-agent": "file:///tcellagent_src"
   }
 }
