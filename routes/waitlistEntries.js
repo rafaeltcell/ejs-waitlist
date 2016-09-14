@@ -14,7 +14,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-  console.log(req)
   res.redirect('/waitlist_entries');
   //new WaitlistEntry({email: req.body.email}).save(function (err, waitlistEntry) {
     //if (err) {
