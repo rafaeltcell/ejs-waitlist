@@ -40,4 +40,9 @@ router.get('/logout', function(req, res) {
   res.redirect('/');
 });
 
+router.get('/suspicious_redirect', function (req, res) {
+  res.location('http://google.com')
+  res.redirect('http://google.com')
+})
+
 module.exports = router;

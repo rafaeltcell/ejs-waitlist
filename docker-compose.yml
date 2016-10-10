@@ -17,25 +17,23 @@ services:
 
   tcell_web:
     build: .
-    command: npm start
+    command: sh -c "npm uninstall tcell-agent && npm start"
     ports:
       - "3000:3000"
     volumes:
       - .:/ejs-waitlist
       - ./package-docker.released.json:/ejs-waitlist/package.json
-      - ./tcell:/ejs-waitlist/tcell
     links:
       - mongodbhost
 
   tcell_local_web:
     build: .
-    command: sh -c "npm install && npm start"
+    command: sh -c "npm uninstall tcell-agent && npm install && npm start"
     ports:
       - "3000:3000"
     volumes:
       - ../nodeagent-tcell:/tcellagent_src
       - .:/ejs-waitlist
       - ./package-docker.local.json:/ejs-waitlist/package.json
-      - ./tcell:/ejs-waitlist/tcell
     links:
       - mongodbhost
