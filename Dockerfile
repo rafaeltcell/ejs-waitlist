@@ -2,7 +2,7 @@ FROM node:wheezy
 
 RUN mkdir /tcellagent_src
 
-ENV APP_HOME /ejs-waitlist
+ENV APP_HOME /app
 RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
