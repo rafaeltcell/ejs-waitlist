@@ -2,8 +2,14 @@ version: '2'
 services:
   mongodbhost:
     image: mongo:3.3.5
-    ports:
-      - "27017:27017"
+
+  init-mongodbhost:
+    image: mongo:3.3.5
+    links:
+      - mongodbhost
+    volumes:
+      - ./fixtures:/fixtures
+    command: sh -c "mongoimport --host mongodbhost --type json --collection WaitlistEntry --file /fixtures/waitlist_entries.json --jsonArray"
 
   web:
     build: .
@@ -35,5 +41,3 @@ services:
       - .:/app
     links:
       - mongodbhost
-
-  #web35
