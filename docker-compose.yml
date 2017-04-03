@@ -9,7 +9,7 @@ services:
       - mongodbhost
     volumes:
       - ./fixtures:/fixtures
-    command: sh -c "mongoimport --host mongodbhost --type json --collection WaitlistEntry --file /fixtures/waitlist_entries.json --jsonArray"
+    command: sh -c "mongoimport --host mongodbhost --type json --db ejs_waitlist_dev --collection waitlistentries --file /fixtures/waitlist_entries.json --jsonArray"
 
   web:
     build: .
