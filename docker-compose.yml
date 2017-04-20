@@ -9,7 +9,7 @@ services:
       - mongodbhost
     volumes:
       - ./fixtures:/fixtures
-    command: sh -c "mongoimport --host mongodbhost --type json --db ejs_waitlist_dev --collection waitlistentries --file /fixtures/waitlist_entries.json --jsonArray"
+    command: sh -c "timeout 5 bash -c '</dev/tcp/mongodbhost/27017' 2>/dev/null && (mongoimport --host mongodbhost --type json --db ejs_waitlist_dev --collection waitlistentries --file /fixtures/waitlist_entries.json --jsonArray) || echo 'mongodbhost failed to start!!!!!'"
 
   web:
     build: .
