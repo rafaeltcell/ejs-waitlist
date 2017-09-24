@@ -5,6 +5,7 @@ block content
     h1 Login Page
     br
     form(role='form', action="/login", method="post", style='max-width: 300px;')
+      input.form-control(type='hidden', name="_csrf", value=csrfToken)
       .form-group
           input.form-control(type='text', name="username", placeholder='Enter Username')
       .form-group
